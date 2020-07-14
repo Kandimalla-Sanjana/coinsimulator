@@ -11,9 +11,21 @@ fi
 }
 heads=0
 tails=0
-while(( $heads<21 && $tails<21))
+while(( $heads<21 || $tails<21 || $heads!=$tails))
 do
         res=$(coin)
+        echo $res
+        if [ $res == "Heads" ]
+        then
+                ((heads++))
+        else
+                ((tails++))
+        fi
+done
+echo "It's a tie!Both heads and tails won "$heads" times"
+while(($(($heads-$tails))<2 && $(($tails-$heads))<2))
+do
+         res=$(coin)
         echo $res
         if [ $res == "Heads" ]
         then
@@ -28,12 +40,10 @@ if [ $heads -gt $tails ]
 then
         diff=$(($heads-$tails))
         echo "Heads is the winner by "$diff" flips"
-elif [ $heads -lt $tails ]
-then
+else
         diff=$(($tails-$heads))
         echo "Tails is the winner by "$diff" flips"
-else
-        echo "It's a tie"
 fi
+
 
 
